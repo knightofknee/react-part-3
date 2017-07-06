@@ -7,8 +7,16 @@ export default class AllArtists extends Component {
   constructor () {
     super();
     this.state = {
-      artists: []
+      artists: [],
+      artistKeyword: ''
     };
+    this.filterArtist= this.filterArtist.bind(this)
+  }
+
+  filterArtist(event) {
+
+      this.setState({artistKeyword: event.target.value})
+
   }
 
   componentDidMount () {
@@ -19,10 +27,15 @@ export default class AllArtists extends Component {
 
   render () {
 
-    const artists = this.state.artists;
+    const artists = this.state.artists.filter(artist => artist.name.toLowerCase().match(this.state.artistKeyword.toLowerCase()))
+    console.log('artiists', artists)
 
     return (
       <div>
+        <form className="form-group" style={{marginTop: '20px'}}>
+          <input onChange={this.filterArtist} className="form-control" placeholder="Enter artist name"/>
+        </form>
+
         <h3>Artists</h3>
         <div className="list-group">
           {
