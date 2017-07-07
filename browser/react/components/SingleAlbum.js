@@ -13,12 +13,22 @@ export default class SingleAlbum extends Component {
 
   componentDidMount () {
     const albumId = this.props.match.params.albumId;
+    this.setAlbumById(albumId);
+  }
 
+  setAlbumById(albumId){
     axios.get(`/api/albums/${albumId}`)
       .then(res => res.data)
       .then(album => this.setState({
         album
       }));
+  }
+  componentWillReceiveProps(nextProps){
+    const currAlbumId = this.props.match.params.albumId;
+    const nextAlbumId = nextProps.match.params.albumId;
+    if(currAlbumId !== nextAlbumId){
+      this.setAlbumById(nextAlbumId);
+    }
   }
 
   render () {

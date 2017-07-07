@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-
+import React, { Component } from 'react'
+import axios from 'axios';
 class NewPlaylist extends Component {
 
-  constructor(){
+  constructor() {
     super()
-    this.state = {inputValue: '', dirty: false}
+    this.state = { inputValue: '', dirty: false }
     this.setInputValue = this.setInputValue.bind(this)
     this.submitInputValue = this.submitInputValue.bind(this)
     this.checkLength = this.checkLength.bind(this)
@@ -12,7 +12,7 @@ class NewPlaylist extends Component {
 
   setInputValue(event) {
 
-    this.setState({inputValue: event.target.value, dirty: true})
+    this.setState({ inputValue: event.target.value, dirty: true })
   }
 
   checkLength(input) {
@@ -22,11 +22,14 @@ class NewPlaylist extends Component {
 
 
   submitInputValue(event) {
-    console.log('hit')
+    // console.log('hit')
     let ev = event;
     ev.preventDefault()
-    this.setState({inputValue: '', dirty: false})
+    this.props.addPlaylist(this.state.inputValue);
+    this.setState({ inputValue: '', dirty: false })
+
   }
+
 
   render() {
     return (

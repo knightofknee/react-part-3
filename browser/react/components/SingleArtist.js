@@ -16,6 +16,12 @@ class SingleArtist extends React.Component {
 
   componentDidMount () {
     const artistId = this.props.match.params.artistId;
+    this.setArtistById(artistId);
+    
+  }
+
+  setArtistById (artistId) {
+
     const mainPath = `/api/artists/${artistId}`;
     const paths = [mainPath, `${mainPath}/albums`, `${mainPath}/songs`];
     Bluebird
@@ -26,6 +32,15 @@ class SingleArtist extends React.Component {
         artist.songs = songs;
         this.setState({ artist });
       });
+
+  }
+
+  componentWillReceiveProps(nextProps){
+    const currArtistId = this.props.match.params.artistId;
+    const nextArtistId = nextProps.match.params.artistId;
+    if(currArtistId !== nextArtistId){
+      this.setArtistById(nextArtistId);
+    }
   }
 
   render () {
